@@ -1,4 +1,4 @@
-package Models;
+package FarmaciaBaseDato.Farmacia.Models;
 
 import java.util.List;
 

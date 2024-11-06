@@ -1,12 +1,12 @@
-package Services;
+package FarmaciaBaseDato.Farmacia.Services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Models.ProveedoresModel;
-import Repositories.ProveedoresRepositori;
+import FarmaciaBaseDato.Farmacia.Models.ProveedoresModel;
+import FarmaciaBaseDato.Farmacia.Repositories.ProveedoresRepositori;
 
 @Service
 public class ProveedoresServices {

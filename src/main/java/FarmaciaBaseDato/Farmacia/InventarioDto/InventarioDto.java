@@ -1,4 +1,4 @@
-package InventarioDto;
+package FarmaciaBaseDato.Farmacia.InventarioDto;
 
 public class InventarioDto {
 

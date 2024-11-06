@@ -1,4 +1,4 @@
-package Controlers;
+package FarmaciaBaseDato.Farmacia.Controlers;
 
 
 import java.util.List;
@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import Models.ProveedoresModel;
-import Services.ProveedoresServices;
+import FarmaciaBaseDato.Farmacia.Models.ProveedoresModel;
+import FarmaciaBaseDato.Farmacia.Services.ProveedoresServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/proveedores")
@@ -25,13 +28,21 @@ public class ProveedoresControlers {
     @Autowired
     private ProveedoresServices proveedoresServices;
 
-
+    @Operation(summary = "Buscar todos los proveedores")  
+    @ApiResponses(value = {  
+        @ApiResponse(responseCode = "200", description = "lista de usuarios"),  
+        @ApiResponse(responseCode = "400", description = "Error al bucar lista")
+    }) 
     @GetMapping("/all")
 public List<ProveedoresModel> getAllNombres() {
     return this.proveedoresServices.getAllProvedores();
 }
 
-
+@Operation(summary = "Buscar por id")  
+@ApiResponses(value = {  
+    @ApiResponse(responseCode = "200", description = "Proveedor encontrado"),  
+    @ApiResponse(responseCode = "400", description = "Error al buscar proveedor")
+}) 
 @GetMapping("/{id}")
 public ResponseEntity<Boolean> existeProducto(@PathVariable Long id) {
     boolean existeId = proveedoresServices.existeId(id);
@@ -45,7 +56,11 @@ public ResponseEntity<Boolean> existeProducto(@PathVariable Long id) {
 }
 
 
-
+@Operation(summary = "Agregar un nuevo proveedor")  
+@ApiResponses(value = {  
+    @ApiResponse(responseCode = "200", description = "Proveedor creado exitosamente"),  
+    @ApiResponse(responseCode = "400", description = "Error al crear el Proveedor")
+}) 
 @PostMapping("/crear")
 public ResponseEntity<?> agregarProveedor(@RequestBody ProveedoresModel proveedores) {
     this.proveedoresServices.crearProveedor(proveedores);
@@ -53,6 +68,13 @@ public ResponseEntity<?> agregarProveedor(@RequestBody ProveedoresModel proveedo
 }
 
 
+
+
+@Operation(summary = "Borrar proveedor")  
+@ApiResponses(value = {  
+    @ApiResponse(responseCode = "200", description = "Proveedor borrado exitosamente"),  
+    @ApiResponse(responseCode = "400", description = "Error al borrar !Algo salio mal!")
+}) 
 @DeleteMapping("/borrar{id}")
 public ResponseEntity<String> borrarProveedor(@PathVariable long id){
     ProveedoresModel proveedores = new ProveedoresModel();
@@ -67,7 +89,11 @@ public ResponseEntity<String> borrarProveedor(@PathVariable long id){
     }
 }
 
-
+@Operation(summary = "Actualizar datos del proveedor")  
+@ApiResponses(value = {  
+    @ApiResponse(responseCode = "200", description = "Proveedor actualizado exitosamente"),  
+    @ApiResponse(responseCode = "400", description = "Error al actualizar !Algo salio mal!")
+}) 
 @PutMapping ("/actualizar/{id}")
 public ResponseEntity<String> actualizarProveedores(@PathVariable Long id, @RequestBody ProveedoresModel actualizar) {
     if(!proveedoresServices.existeId(id)){
